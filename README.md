@@ -50,7 +50,7 @@ THEN I should have proper build scripts for a webpack application
 
 The following screenshot demonstrates the application:
 
-![Screenshot of the installed application](./assets/images/screenshot.png)
+![Screenshot of the installed application](./assets/screenshot.png)
 
 ## Live Site
 
