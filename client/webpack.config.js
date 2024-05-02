@@ -2,10 +2,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
 const path = require("path");
 const { InjectManifest } = require("workbox-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = () => {
   return {
-    mode: "production",
+    mode: "development",
     entry: {
       main: "./src/js/index.js",
       install: "./src/js/install.js",
@@ -17,26 +18,29 @@ module.exports = () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: "./index.html",
-        title: "J.A.T.E. - Just Another Text Editor",
+        title: "Webpack Plugin",
       }),
+      new MiniCssExtractPlugin(),
       new InjectManifest({
         swSrc: "./src-sw.js",
-        swDest: "dist/src-sw.js",
+        swDest: "service-worker.js",
       }),
       new WebpackPwaManifest({
-        fingerprints: true,
-        inject: true,
         name: "J.A.T.E.",
         short_name: "jate",
         description: "Just Another Text Editor",
         background_color: "#225ca3",
         theme_color: "#225ca3",
-        start_url: "./",
+        publicPath: "/",
         icons: [
           {
             src: path.resolve("src/images/logo.png"),
             sizes: [96, 128, 192, 256, 384, 512],
-            destination: path.join("assets", "icons"),
+            destination: path.join("logo"),
+          },
+          {
+            src: path.resolve("favicon.ico"),
+            size: "48x48",
           },
         ],
       }),
@@ -47,6 +51,10 @@ module.exports = () => {
         {
           test: /\.css$/i,
           use: ["style-loader", "css-loader"],
+        },
+        {
+          test: /\.(png|svg|jpg|jpeg|gif|ico)$/i,
+          type: "asset/resource",
         },
         {
           test: /\.m?js$/,

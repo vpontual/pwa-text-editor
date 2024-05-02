@@ -14,16 +14,12 @@ const initdb = async () =>
 
 // Put the content into the database
 export const putDb = async (content) => {
-  try {
-    const jateDb = await openDB("jate", 1);
-    const tx = jateDb.transaction("jate", "readwrite");
-    const store = tx.objectStore("jate");
-    const request = store.put(content);
-    const result = await request;
-    console.log("Data saved to the database", result);
-  } catch (error) {
-    console.error("Error saving data to the database", error);
-  }
+  const jateDb = await openDB("jate", 1);
+  const tx = jateDb.transaction("jate", "readwrite");
+  const store = tx.objectStore("jate");
+  const request = store.add({ content });
+  const result = await request;
+  console.log("Data saved to the database", result);
 };
 
 // Get the content from the database
