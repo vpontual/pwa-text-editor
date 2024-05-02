@@ -18,8 +18,7 @@ export const putDb = async (content) => {
     const jateDb = await openDB("jate", 1);
     const tx = jateDb.transaction("jate", "readwrite");
     const store = tx.objectStore("jate");
-    const clonedContent = JSON.parse(JSON.stringify(content));
-    const request = store.put(clonedContent);
+    const request = store.put({ content: clonedContent });
     const result = await request;
     console.log("Data saved to the database", result);
   } catch (error) {

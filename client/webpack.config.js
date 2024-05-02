@@ -21,7 +21,7 @@ module.exports = () => {
       }),
       new InjectManifest({
         swSrc: "./src-sw.js",
-        swDest: "src-sw.js",
+        swDest: "dist/src-sw.js",
       }),
       new WebpackPwaManifest({
         fingerprints: true,
